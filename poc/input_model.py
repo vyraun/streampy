@@ -1,6 +1,8 @@
 # This input model is the A/B test. Generic module/"skeleton"
 import random
 
+# hoe maken we dit "plug & play"
+
 def decision(context, N):
 
     if N['n'] < N['N']:
@@ -27,7 +29,11 @@ def learn(reward, action, N):
     N['n'] += 1
     
     return N
-    
+
+
+# For the admin / backend:
+# def getStats(expID):
+	# return N
 
 def initN():
     return { 'n' : 0, 'Sa' : 0 , 'Na' : 0, 'Sb' : 0, 'Nb' : 0, 'N' : 10000 }

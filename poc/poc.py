@@ -5,7 +5,7 @@ import futures
 experiments = []
 
 class PoC(object):   
-    def newExperiment(self):
+    def newExperiment(self):   ### THIS WILL GO THROUGH ADMIN..
         global experiments
         # Add a new experiment to the end of the list
         # The experimentID is the indexnumber of the experiment
