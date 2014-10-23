@@ -18,6 +18,9 @@ def decision(context, theta):
     else:
         return 'B'
 
+
+
+
 def learn(reward, action, theta):
 
     reward = int(float(reward))

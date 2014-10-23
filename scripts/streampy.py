@@ -1,4 +1,4 @@
-import input_model
+import input_model2 as input_model
 from flask import Flask, request
 from flask.ext.restful import reqparse, abort, Resource, Api
 
@@ -29,7 +29,7 @@ class Reward(Resource):
         # Just put the reward, action and theta in input_model
         # Return a 200
         reward = input_model.learn(reward, action, theta)
-        print reward
+        #print reward
         return 200
 
 api.add_resource(Action, '/<int:exp_id>/')
