@@ -1,0 +1,80 @@
+
+TODO based on meeting the 30-10-2014:
+
+
+TODO list
+- M: Check for Linux server somewhere…
+	- Check Franc
+- J: Move GLOBALS to config file
+- J: Update readme file for installation
+- J: Create Redis startup script
+- J: Work out “redis interface”
+
+
+USE CASE / DATA TYPES:
+"Onderzoeker wil een AB,..,n test doen, en dit doen voor 2 verschillende landen. Doel is de test 10.000 observaties lang te laten draaien per land, en daarna een beslissing te maken."
+
+Stap 1: User specificeert mogelijke acties:
+
+- Acties: 
+	type = {A, B, ..., n}, 
+	language = {"D", "N"} 
+	
+Versies van website en taal.
+Dit zijn twee discrete actie types, logischerwijs bestaan er ook continue, bijvoorbeeld prijs = {Real number}
+
+Dus, een specifieke actie-response heeft JSON: 
+{
+  "actie": {
+    "type": "A",
+    "language": "d"
+  }
+}
+
+
+
+Stap 2: we gaan live, en er komt een context binnen: (Action.get(context) call)
+
+{
+  "land": "EN"
+}
+
+
+
+Stap 3: Beslissing voor actie:
+
+var land <- context["land"]				# Parse the context
+IF( N["land"] > 10.000){				# Als meer dan 10.000 obs voor dit land
+	Actie["type"] = MAX(mean, type)			# select per type de stream mean, en maximaliseer
+} ELSE {
+	Actie["type"] = RND(mean, type)
+}
+Actie["language"] = context["land"]			# en geef de juiste taal
+return(Actie)
+
+
+
+Stap 4: Reward op actie komt terug:
+
+Object bevat:
+
+reward = 
+	click = {0.1}
+actie = 
+	type = {A, B, ..., n}, 
+	language = {"D", "N"}
+context =
+	land = {""}
+
+
+De update in speudo code:
+
+N = count(R.click, x.land)    				# Count gesplit per land
+M = mean(R.click, a.type)	 			# Mean per type
+save(N, M)						# en dan zou hij er eigenlijk al moeten zijn
+
+
+
+
+
+
